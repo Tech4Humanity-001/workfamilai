@@ -1,4 +1,3 @@
-
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -23,19 +22,19 @@ import DonationCancel from "./pages/DonationCancel";
 import WorkPackages from "./pages/WorkPackages";
 import SiteAudit from "./pages/SiteAudit";
 import FreeCourses from "./pages/FreeCourses";
+import WorkFamilyAICourse from "./pages/WorkFamilyAICourse";
 import Contact from "./pages/Contact";
 import { OrganizationalDashboard } from "./components/organizational/OrganizationalDashboard";
 import { CompleteOrganizationalStructure } from "./components/organizational/CompleteOrganizationalStructure";
 import { NavigationHeader } from "./components/ui/navigation-header";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 
-// Optimized query client for production
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 2,
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      gcTime: 10 * 60 * 1000, // 10 minutes (renamed from cacheTime)
+      staleTime: 5 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
     },
   },
 });
@@ -48,7 +47,6 @@ const LoadingFallback = () => (
     </div>
   </div>
 );
-
 
 const App = () => {
   return (
@@ -65,17 +63,11 @@ const App = () => {
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/free-courses" element={<FreeCourses />} />
+                  <Route path="/free-courses/workfamily-ai-foundations" element={<WorkFamilyAICourse />} />
                   <Route path="/work-packages" element={<WorkPackages />} />
-            <Route path="/department/:departmentId" element={<DepartmentDetail />} />
-            <Route 
-              path="/admin" 
-              element={
-                <ProtectedRoute requireAdmin={true}>
-                  <Admin />
-                </ProtectedRoute>
-              } 
-            />
-            <Route path="/contact-test" element={<ContactTest />} />
+                  <Route path="/department/:departmentId" element={<DepartmentDetail />} />
+                  <Route path="/admin" element={<ProtectedRoute requireAdmin={true}><Admin /></ProtectedRoute>} />
+                  <Route path="/contact-test" element={<ContactTest />} />
                   <Route path="/scenarios" element={<Scenarios />} />
                   <Route path="/scenarios/:scenarioId" element={<ScenarioDetail />} />
                   <Route path="/demo" element={<DemoComingSoon />} />
